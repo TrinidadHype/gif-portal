@@ -14,15 +14,33 @@ describe("gif-portal", () => {
 
   it("Is initialized!", async () => {
     // Add your test here.
-    const tx = await program.methods.initialize().accounts({
-      gifAccount: gifAccount.publicKey,
-      user: provider.wallet.publicKey,
-      systemProgram: SystemProgram.programId,
-  }).signers([gifAccount]).rpc();
+    const tx = await program.methods
+      .initialize()
+      .accounts({
+        gifAccount: gifAccount.publicKey,
+        user: provider.wallet.publicKey,
+        systemProgram: SystemProgram.programId,
+      })
+      .signers([gifAccount])
+      .rpc();
 
     console.log("Your transaction signature:", tx);
 
     let account = await program.account.gifAccount.fetch(gifAccount.publicKey);
-    console.log('👀 GIF Count', account.numGifs.toString())
+    console.log("👀 GIF Count", account.numGifs.toString());
+
+    await program.methods
+      .addGif(
+        "https://media2.giphy.com/media/12MY94aT1qTFjW/giphy.gif?cid=790b761101cc9fec2c1f2b945c96a8e69c226c05c56372fe&rid=giphy.gif&ct=g"
+      )
+      .accounts({
+        gifAccount: gifAccount.publicKey,
+        user: provider.wallet.publicKey,
+      })
+      .rpc();
+
+    account = await program.account.gifAccount.fetch(gifAccount.publicKey);
+    console.log("👀 GIF Count", account.numGifs.toString());
+    console.log("👀 GIF List", account.gifList);
   });
 });
