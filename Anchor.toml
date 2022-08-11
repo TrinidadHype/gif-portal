@@ -1,14 +1,14 @@
 [features]
 seeds = false
 skip-lint = false
-[programs.localnet]
+[programs.devnet]
 gif_portal = "GWnfF71VZSD6teEg6qjrCycnVAaidHFg8z4VHpJpdwyr"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "/home/mythra/.config/solana/devnet.json"
 
 [scripts]
