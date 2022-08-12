@@ -12,13 +12,17 @@ import * as web3 from "@solana/web3.js";
 
 require("../styles/walletmulti.css");
 
+const config = {
+  commitment: "processed" as web3.Commitment,
+};
+
 function MyApp({ Component, pageProps }: AppProps) {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => web3.clusterApiUrl(network), [network]);
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
+    <ConnectionProvider endpoint={endpoint} config={config}>
       <WalletProvider wallets={wallets}>
         <WalletModalProvider>
           <Component {...pageProps} />
